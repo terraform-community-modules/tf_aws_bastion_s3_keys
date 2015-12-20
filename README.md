@@ -26,7 +26,7 @@ Only SSH access is allowed to Bastion host.
 Basic example - In your terraform code add something like this:
 
     module "bastion" {
-      source               = "github.com/antonbabenko/tf_aws_bastion_s3_keys"
+      source               = "github.com/terraform-community-modules/tf_aws_bastion_s3_keys"
       instance_type        = "t2.micro"
       ami                  = "ami-123456"
       region               = "eu-west-1"
