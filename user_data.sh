@@ -28,8 +28,6 @@ do
   aws s3 cp s3://$BUCKET/$key /tmp/pub_key_files/
 done
 
-cat /tmp/pub_key_files/*.pub > /tmp/new_authorized_keys
-
-cp --force /tmp/new_authorized_keys /home/$SSH_USER/.ssh/authorized_keys
+for f in /tmp/pub_key_files/*.pub ; do (cat "$f"; echo) >> /home/$SSH_USER/.ssh/authorized_keys; done
 chown $SSH_USER:$SSH_USER /home/$SSH_USER/.ssh/authorized_keys
 chmod 600 /home/$SSH_USER/.ssh/authorized_keys
