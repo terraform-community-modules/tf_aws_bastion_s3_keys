@@ -26,8 +26,10 @@ resource "template_file" "user_data" {
   template = "${file("${path.module}/${var.user_data_file}")}"
 
   vars {
-    s3_bucket_name = "${var.s3_bucket_name}"
-    ssh_user       = "${var.ssh_user}"
+    s3_bucket_name              = "${var.s3_bucket_name}"
+    ssh_user                    = "${var.ssh_user}"
+    enable_hourly_cron_updates  = "${var.enable_hourly_cron_updates}"
+    additional_user_data_script = "${var.additional_user_data_script}"
   }
 }
 

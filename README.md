@@ -2,6 +2,8 @@
 
 A Terraform module for creating bastion host on AWS EC2 and populate its ~/.ssh/authorized_keys with public keys fetched from S3 bucket.
 
+This module can append public keys, setup cron to update them and run additional commands at the end of setup.
+
 Only SSH access is allowed to Bastion host. 
 
 ## Input variables:
@@ -14,6 +16,8 @@ Only SSH access is allowed to Bastion host.
   * s3_bucket_name - S3 bucket name which contains public keys (see `samples/s3_ssh_public_keys.tf`)
   * vpc_id - VPC where bastion host should be created
   * subnet_id - Subnet ID where instance should be created
+  * enable_hourly_cron_updates - Enable hourly crontab updates from S3 bucket (default, `false`)
+  * additional_user_data_script - Additional user-data script to run at the end.
 
 ## Outputs:
 
@@ -26,14 +30,16 @@ Only SSH access is allowed to Bastion host.
 Basic example - In your terraform code add something like this:
 
     module "bastion" {
-      source               = "github.com/terraform-community-modules/tf_aws_bastion_s3_keys"
-      instance_type        = "t2.micro"
-      ami                  = "ami-123456"
-      region               = "eu-west-1"
-      iam_instance_profile = "s3-readonly"
-      s3_bucket_name       = "public-keys-demo-bucket"
-      vpc_id               = "vpc-123456"
-      subnet_id            = "subnet-123456"
+      source                      = "github.com/terraform-community-modules/tf_aws_bastion_s3_keys"
+      instance_type               = "t2.micro"
+      ami                         = "ami-123456"
+      region                      = "eu-west-1"
+      iam_instance_profile        = "s3-readonly"
+      s3_bucket_name              = "public-keys-demo-bucket"
+      vpc_id                      = "vpc-123456"
+      subnet_id                   = "subnet-123456"
+      enable_hourly_cron_updates  = true
+      additional_user_data_script = "date"
     }
 
 If you want to assign EIP and use Route53 to bastion instance add something like this:
