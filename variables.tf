@@ -19,6 +19,12 @@ variable "s3_region" {
 variable "ssh_user" {
   default = "ubuntu"
 }
+variable "enable_hourly_cron_updates" {
+  default = false
+}
+variable "additional_user_data_script" {
+  default = ""
+}
 variable "region" {
   default = "eu-west-1"
 }
