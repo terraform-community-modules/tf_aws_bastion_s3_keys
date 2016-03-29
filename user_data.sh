@@ -68,7 +68,7 @@ else
 fi
 
 # Add to cron
-if [ -z "$keys_update_frequency" ]; then
+if [ -n "$keys_update_frequency" ]; then
   croncmd="/home/${ssh_user}/update_ssh_authorized_keys.sh"
   cronjob="$keys_update_frequency $croncmd"
   ( crontab -u ${ssh_user} -l | grep -v "$croncmd" ; echo "$cronjob" ) | crontab -u ${ssh_user} -
