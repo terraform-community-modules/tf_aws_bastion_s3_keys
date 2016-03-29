@@ -16,7 +16,7 @@ Only SSH access is allowed to Bastion host.
   * s3_bucket_name - S3 bucket name which contains public keys (see `samples/s3_ssh_public_keys.tf`)
   * vpc_id - VPC where bastion host should be created
   * subnet_id - Subnet ID where instance should be created
-  * enable_hourly_cron_updates - Enable hourly crontab updates from S3 bucket (default, `false`)
+  * keys_update_frequency - How often to update keys. A cron timespec or an empty string to turn off (default).
   * additional_user_data_script - Additional user-data script to run at the end.
 
 ## Outputs:
@@ -38,7 +38,7 @@ Basic example - In your terraform code add something like this:
       s3_bucket_name              = "public-keys-demo-bucket"
       vpc_id                      = "vpc-123456"
       subnet_id                   = "subnet-123456"
-      enable_hourly_cron_updates  = true
+      keys_update_frequency       = "5,20,35,50 * * * *"
       additional_user_data_script = "date"
     }
 

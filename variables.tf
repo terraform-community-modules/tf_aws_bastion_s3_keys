@@ -20,7 +20,10 @@ variable "ssh_user" {
   default = "ubuntu"
 }
 variable "enable_hourly_cron_updates" {
-  default = false
+  default = "false"
+}
+variable "keys_update_frequency" {
+  default = ""
 }
 variable "additional_user_data_script" {
   default = ""
