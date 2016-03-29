@@ -13,6 +13,9 @@ variable "user_data_file" {
 }
 variable "s3_bucket_name" {
 }
+variable "s3_bucket_uri" {
+  default = ""
+}
 variable "s3_region" {
   default = "eu-west-1"
 }

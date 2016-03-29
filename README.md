@@ -1,10 +1,14 @@
 # tf_aws_bastion_s3_keys
 
-A Terraform module for creating bastion host on AWS EC2 and populate its ~/.ssh/authorized_keys with public keys fetched from S3 bucket.
+A Terraform module for creating bastion host on AWS EC2 and populate its
+~/.ssh/authorized_keys with public keys fetched from S3 bucket.
 
-This module can append public keys, setup cron to update them and run additional commands at the end of setup.
+This module can append public keys, setup cron to update them and run
+additional commands at the end of setup. Note that if it is set up to
+update the keys, removing a key from the bucket will also remove it from
+the bastion host.
 
-Only SSH access is allowed to Bastion host. 
+Only SSH access is allowed to the bastion host.
 
 ## Input variables:
 
@@ -14,6 +18,7 @@ Only SSH access is allowed to Bastion host.
   * region - Region (default, `eu-west-1`)
   * iam_instance_profile - IAM instance profile which is allowed to access S3 bucket (see `samples/iam.tf`)
   * s3_bucket_name - S3 bucket name which contains public keys (see `samples/s3_ssh_public_keys.tf`)
+  * s3_bucket_uri – S3 URI which contains the public keys. If this is specified, `s3_bucket_name` will be ignored.
   * vpc_id - VPC where bastion host should be created
   * subnet_id - Subnet ID where instance should be created
   * keys_update_frequency - How often to update keys. A cron timespec or an empty string to turn off (default).
@@ -48,7 +53,7 @@ If you want to assign EIP and use Route53 to bastion instance add something like
       vpc = true
       instance = "${module.bastion.instance_id}"
     }
-    
+
     resource "aws_route53_record" "bastion" {
       zone_id = "..."
       name    = "bastion.example.com"
@@ -70,7 +75,7 @@ or even like this:
     $ ssh ubuntu@bastion.example.com
 
 PS: In some cases you may consider adding flag `-A` to ssh command to enable forwarding of the authentication agent connection.
-    
+
 ##Authors
 
 Created and maintained by [Anton Babenko](https://github.com/antonbabenko).
