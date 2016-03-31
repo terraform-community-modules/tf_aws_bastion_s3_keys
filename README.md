@@ -18,7 +18,7 @@ Only SSH access is allowed to the bastion host.
   * region - Region (default, `eu-west-1`)
   * iam_instance_profile - IAM instance profile which is allowed to access S3 bucket (see `samples/iam.tf`)
   * s3_bucket_name - S3 bucket name which contains public keys (see `samples/s3_ssh_public_keys.tf`)
-  * s3_bucket_uri – S3 URI which contains the public keys. If this is specified, `s3_bucket_name` will be ignored.
+  * s3_bucket_uri – S3 URI which contains the public keys. If specified, `s3_bucket_name` will be ignored.
   * vpc_id - VPC where bastion host should be created
   * subnet_id - Subnet ID where instance should be created
   * keys_update_frequency - How often to update keys. A cron timespec or an empty string to turn off (default).
@@ -29,6 +29,7 @@ Only SSH access is allowed to the bastion host.
   * instance_id - Bastion instance ID
   * ssh_user - SSH user to login to bastion
   * instance_ip - Public IP of bastion instance
+  * security_group_id - ID of the security group the bastion host is launched in.
 
 ## Example:
 
