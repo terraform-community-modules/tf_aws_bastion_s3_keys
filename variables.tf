@@ -16,9 +16,6 @@ variable "s3_bucket_name" {
 variable "s3_bucket_uri" {
   default = ""
 }
-variable "s3_region" {
-  default = "eu-west-1"
-}
 variable "ssh_user" {
   default = "ubuntu"
 }
@@ -36,5 +33,8 @@ variable "region" {
 }
 variable "vpc_id" {
 }
-variable "subnet_id" {
+variable "subnet_ids" {
+}
+variable "eip" {
+  default = ""
 }
