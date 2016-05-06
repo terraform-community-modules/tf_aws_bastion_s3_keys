@@ -67,9 +67,7 @@ resource "aws_launch_configuration" "bastion" {
   image_id             = "${var.ami}"
   instance_type        = "${var.instance_type}"
   user_data            = "${template_file.user_data.rendered}"
-  security_groups      = [
-    "${aws_security_group.bastion.id}"
-  ]
+  security_groups      = ["${concat("${aws_security_group.bastion.id}", split(",", "${var.security_group_ids}"))}"]
   iam_instance_profile = "${var.iam_instance_profile}"
 
   lifecycle {

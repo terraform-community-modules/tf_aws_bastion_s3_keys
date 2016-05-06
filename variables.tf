@@ -33,6 +33,9 @@ variable "region" {
 }
 variable "vpc_id" {
 }
+variable "security_group_ids" {
+  description = "Comma seperated list of security groups to apply to the bastion."
+}
 variable "subnet_ids" {
 }
 variable "eip" {
