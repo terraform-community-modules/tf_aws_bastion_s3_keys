@@ -42,9 +42,7 @@ head -n $line $KEYS_FILE > $TEMP_KEYS_FILE
 # Synchronize the keys from the bucket.
 aws s3 sync --delete $BUCKET_URI $PUB_KEYS_DIR
 for filename in $PUB_KEYS_DIR/*; do
-    cat $filename >> $TEMP_KEYS_FILE
-    # Ensure each new key starts on a newline
-    sed -i -e '$a\' $TEMP_KEYS_FILE
+    sed 's/\n\?$/\n/' < $filename >> $TEMP_KEYS_FILE
 done
 
 # Move the new authorized keys in place.
