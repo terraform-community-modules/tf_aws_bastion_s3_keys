@@ -1,3 +1,10 @@
+## 1.1.1
+
+FEATURES:
+
+ * [GH-6] - Ensure each key is on a newline (crumley)
+ * [GH-5] - Allows specifying security group ids to be added to the bastion box(es) (crumley)
+ 
 ## 1.1.0
 
 FEATURES:
