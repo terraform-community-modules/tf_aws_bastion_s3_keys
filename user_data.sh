@@ -41,7 +41,9 @@ head -n $line $KEYS_FILE > $TEMP_KEYS_FILE
 
 # Synchronize the keys from the bucket.
 aws s3 sync --delete $BUCKET_URI $PUB_KEYS_DIR
-cat $PUB_KEYS_DIR/* >> $TEMP_KEYS_FILE
+for filename in $PUB_KEYS_DIR/*; do
+    sed 's/\n\?$/\n/' < $filename >> $TEMP_KEYS_FILE
+done
 
 # Move the new authorized keys in place.
 chown $SSH_USER:$SSH_USER $KEYS_FILE
