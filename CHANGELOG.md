@@ -2,7 +2,7 @@
 
 FEATURES:
 
- * [GH-5] - Minor fixes for compatibility with Terraform 0.7.0
+ * [GH-7] - Minor fixes for compatibility with Terraform 0.7.0
 
 ## 1.1.1
 
