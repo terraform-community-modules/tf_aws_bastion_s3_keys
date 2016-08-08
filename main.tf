@@ -30,7 +30,7 @@ resource "aws_security_group" "bastion" {
   }
 }
 
-resource "template_file" "user_data" {
+data "template_file" "user_data" {
   template = "${file("${path.module}/${var.user_data_file}")}"
 
   vars {
@@ -40,10 +40,6 @@ resource "template_file" "user_data" {
     keys_update_frequency       = "${var.keys_update_frequency}"
     enable_hourly_cron_updates  = "${var.enable_hourly_cron_updates}"
     additional_user_data_script = "${var.additional_user_data_script}"
-  }
-
-  lifecycle {
-    create_before_destroy = true
   }
 }
 
@@ -66,8 +62,10 @@ resource "aws_launch_configuration" "bastion" {
   name_prefix          = "${var.name}-"
   image_id             = "${var.ami}"
   instance_type        = "${var.instance_type}"
-  user_data            = "${template_file.user_data.rendered}"
-  security_groups      = ["${concat("${aws_security_group.bastion.id}", split(",", "${var.security_group_ids}"))}"]
+  user_data            = "${data.template_file.user_data.rendered}"
+  security_groups      = [
+    "${compact(concat(list(aws_security_group.bastion.id), split(",", "${var.security_group_ids}")))}"
+  ]
   iam_instance_profile = "${var.iam_instance_profile}"
 
   lifecycle {
