@@ -20,7 +20,7 @@ Only SSH access is allowed to the bastion host.
   * `s3_bucket_name` - S3 bucket name which contains public keys (see `samples/s3_ssh_public_keys.tf`)
   * `s3_bucket_uri `– S3 URI which contains the public keys. If specified, `s3_bucket_name` will be ignored
   * `vpc_id` - VPC where bastion host should be created
-  * `subnet_ids` - Comma-separated list of subnet IDs where auto-scaling should create instances
+  * `subnet_ids` - List of subnet IDs where auto-scaling should create instances
   * `keys_update_frequency` - How often to update keys. A cron timespec or an empty string to turn off (default)
   * `additional_user_data_script` - Additional user-data script to run at the end
   * `eip` - EIP to put into EC2 tag (can be used with scripts like https://github.com/skymill/aws-ec2-assign-elastic-ip, default - empty value)
@@ -42,7 +42,7 @@ Basic example - In your terraform code add something like this:
       iam_instance_profile        = "s3-readonly"
       s3_bucket_name              = "public-keys-demo-bucket"
       vpc_id                      = "vpc-123456"
-      subnet_ids                  = "subnet-123456,subnet-6789123,subnet-321321"
+      subnet_ids                  = ["subnet-123456", "subnet-6789123", "subnet-321321"]
       keys_update_frequency       = "5,20,35,50 * * * *"
       additional_user_data_script = "date"
     }
