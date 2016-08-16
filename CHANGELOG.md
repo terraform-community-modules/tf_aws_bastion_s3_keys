@@ -1,3 +1,9 @@
+## 1.2.1
+
+FEATURES:
+
+ * Support lists introduced in Terraform 0.7.0
+
 ## 1.2.0
 
 FEATURES:
