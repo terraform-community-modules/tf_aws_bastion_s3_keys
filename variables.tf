@@ -35,9 +35,11 @@ variable "vpc_id" {
 }
 variable "security_group_ids" {
   description = "Comma seperated list of security groups to apply to the bastion."
-  default = ""
+  default     = ""
 }
 variable "subnet_ids" {
+  default     = []
+  description = "A list of subnet ids"
 }
 variable "eip" {
   default = ""
