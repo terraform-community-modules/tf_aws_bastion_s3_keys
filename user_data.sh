@@ -18,10 +18,6 @@ pip install --upgrade awscli
 ##############
 
 cat <<"EOF" > /home/${ssh_user}/update_ssh_authorized_keys.sh
-cat <<EOF > /home/${ssh_user}/.ssh/config
-Host *
-    StrictHostKeyChecking no
-EOF
 #!/usr/bin/env bash
 
 set -e
@@ -53,6 +49,12 @@ done
 chown $SSH_USER:$SSH_USER $KEYS_FILE
 chmod 600 $KEYS_FILE
 mv $TEMP_KEYS_FILE $KEYS_FILE
+
+cat <<"SSHCONFIG" > /home/${ssh_user}/.ssh/config
+Host *
+    StrictHostKeyChecking no
+SSHCONFIG
+
 EOF
 
 chown ${ssh_user}:${ssh_user} /home/${ssh_user}/update_ssh_authorized_keys.sh
