@@ -18,6 +18,10 @@ pip install --upgrade awscli
 ##############
 
 cat <<"EOF" > /home/${ssh_user}/update_ssh_authorized_keys.sh
+cat <<EOF > /home/ubuntu/.ssh/config
+Host *
+    StrictHostKeyChecking no
+EOF
 #!/usr/bin/env bash
 
 set -e
