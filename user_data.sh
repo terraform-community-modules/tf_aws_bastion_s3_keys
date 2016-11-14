@@ -49,13 +49,14 @@ done
 chown $SSH_USER:$SSH_USER $KEYS_FILE
 chmod 600 $KEYS_FILE
 mv $TEMP_KEYS_FILE $KEYS_FILE
+EOF
 
-cat <<"SSHCONFIG" > /home/${ssh_user}/.ssh/config
+cat <<"EOF" > /home/${ssh_user}/.ssh/config
 Host *
     StrictHostKeyChecking no
-SSHCONFIG
-
 EOF
+chmod 600 /home/${ssh_user}/.ssh/config
+chown ${ssh_user}:${ssh_user} /home/${ssh_user}/.ssh/config
 
 chown ${ssh_user}:${ssh_user} /home/${ssh_user}/update_ssh_authorized_keys.sh
 chmod 755 /home/${ssh_user}/update_ssh_authorized_keys.sh
