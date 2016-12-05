@@ -66,7 +66,6 @@ point to existing bastion instance:
 
     resource "aws_eip" "bastion" {
       vpc = true
-      instance = "${module.bastion.instance_id}"
     }
 
     resource "aws_route53_record" "bastion" {
