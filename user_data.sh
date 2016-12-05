@@ -9,7 +9,7 @@ apt-get install python-pip jq -y
 #####################
 
 # Amazon Linux (RHEL) - NAT instances
-yum update
+yum update -y
 yum install python-pip jq -y
 #####################
 
