@@ -54,7 +54,7 @@ point to existing bastion instance:
 
     module "bastion" {
       // see above
-      eip = ${aws_eip.bastion.public_ip}
+      eip = "${aws_eip.bastion.public_ip}"
       additional_user_data_script = <<EOF
         pip install aws-ec2-assign-elastic-ip
         INSTANCE_ID=$(wget -q -O - http://169.254.169.254/latest/meta-data/instance-id)
