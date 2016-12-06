@@ -68,6 +68,7 @@ resource "aws_launch_configuration" "bastion" {
   ]
   iam_instance_profile = "${var.iam_instance_profile}"
   associate_public_ip_address = "${var.associate_public_ip_address}"
+  key_name             = "${var.key_name}"
 
   lifecycle {
     create_before_destroy = true

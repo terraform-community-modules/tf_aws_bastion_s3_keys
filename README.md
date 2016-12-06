@@ -25,6 +25,7 @@ Only SSH access is allowed to the bastion host.
   * `additional_user_data_script` - Additional user-data script to run at the end
   * `associate_public_ip_address` - Whether to auto-assign public IP to the instance (by default - `false`)
   * `eip` - EIP to put into EC2 tag (can be used with scripts like https://github.com/skymill/aws-ec2-assign-elastic-ip, default - empty value)
+  * `key_name` - Launch configuration key name to be applied to created instance(s).
 
 ## Outputs:
 
