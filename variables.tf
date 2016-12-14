@@ -47,3 +47,6 @@ variable "eip" {
 variable "associate_public_ip_address" {
   default = false
 }
+variable "key_name" {
+ default = ""
+}
