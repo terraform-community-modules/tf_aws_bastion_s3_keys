@@ -45,5 +45,5 @@ variable "eip" {
   default = ""
 }
 variable "associate_public_ip_address" {
-  default = "false"
+  default = false
 }
