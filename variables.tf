@@ -44,3 +44,10 @@ variable "subnet_ids" {
 variable "eip" {
   default = ""
 }
+variable "associate_public_ip_address" {
+  default = false
+}
+variable "key_name" {
+  description = "Key pair to provision - helps with debugging"
+  default = ""
+}
