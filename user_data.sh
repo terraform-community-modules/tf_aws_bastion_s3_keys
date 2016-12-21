@@ -52,6 +52,9 @@ done
 chown $SSH_USER:$SSH_USER $KEYS_FILE
 chmod 600 $KEYS_FILE
 mv $TEMP_KEYS_FILE $KEYS_FILE
+if selinuxenabled; then
+    restorecon -R -v $KEYS_FILE
+fi
 EOF
 
 cat <<"EOF" > /home/${ssh_user}/.ssh/config
