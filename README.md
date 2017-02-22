@@ -57,11 +57,9 @@ point to existing bastion instance:
       // see above
       eip = "${aws_eip.bastion.public_ip}"
       additional_user_data_script = <<EOF
-    pip install aws-ec2-assign-elastic-ip
-    INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
     REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | awk -F\" '{print $4}')
-    EIP=$(aws ec2 describe-tags --filters "Name=resource-id,Values=$${INSTANCE_ID}" "Name=key,Values=EIP" --output text --region $${REGION} --query 'Tags[*].Value')
-    aws-ec2-assign-elastic-ip --valid-ips $$EIP
+    INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+    aws ec2 associate-address --region $REGION --instance-id $INSTANCE_ID --allocation-id ${aws_eip.bastion.id}
     EOF
     }
 
