@@ -51,13 +51,6 @@ chmod 600 $KEYS_FILE
 mv $TEMP_KEYS_FILE $KEYS_FILE
 EOF
 
-cat <<"EOF" > /home/${ssh_user}/.ssh/config
-Host *
-    StrictHostKeyChecking no
-EOF
-chmod 600 /home/${ssh_user}/.ssh/config
-chown ${ssh_user}:${ssh_user} /home/${ssh_user}/.ssh/config
-
 chown ${ssh_user}:${ssh_user} /home/${ssh_user}/update_ssh_authorized_keys.sh
 chmod 755 /home/${ssh_user}/update_ssh_authorized_keys.sh
 
