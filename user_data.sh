@@ -52,7 +52,8 @@ done
 chown $SSH_USER:$SSH_USER $KEYS_FILE
 chmod 600 $KEYS_FILE
 mv $TEMP_KEYS_FILE $KEYS_FILE
-if selinuxenabled; then
+command -v restorecon >/dev/null 2>&1
+if [[ $? -eq 0 ]] && selinuxenabled; then
     restorecon -R -v $KEYS_FILE
 fi
 EOF
