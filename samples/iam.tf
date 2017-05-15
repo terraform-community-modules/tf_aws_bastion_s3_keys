@@ -35,6 +35,7 @@ resource "aws_iam_role_policy" "s3_readonly_policy" {
             "Sid": "Stmt1425916919000",
             "Effect": "Allow",
             "Action": [
+		"ec2:AssociateAddress",
                 "s3:List*",
                 "s3:Get*"
             ],
