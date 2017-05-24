@@ -1,11 +1,11 @@
 # This is just a sample definition of IAM instance profile which is allowed to read-only from S3, and associate ElasticIP addresses.
-resource "aws_iam_instance_profile" "s3_readonly" {
-  name  = "s3-readonly"
-  roles = ["${aws_iam_role.s3_readonly.name}"]
+resource "aws_iam_instance_profile" "s3_readonly-allow_associateaddress" {
+  name  = "s3_readonly-allow_associateaddress"
+  roles = ["${aws_iam_role.s3_readonly-allow_associateaddress.name}"]
 }
 
-resource "aws_iam_role" "s3_readonly" {
-  name               = "s3-readonly-role"
+resource "aws_iam_role" "s3_readonly-allow_associateaddress" {
+  name               = "s3_readonly-allow_associateaddress-role"
   path               = "/"
   assume_role_policy = <<EOF
 {
@@ -24,9 +24,9 @@ resource "aws_iam_role" "s3_readonly" {
 EOF
 }
 
-resource "aws_iam_role_policy" "s3_readonly_policy" {
-  name   = "s3-readonly-policy"
-  role   = "${aws_iam_role.s3_readonly.id}"
+resource "aws_iam_role_policy" "s3_readonly-allow_associateaddress_policy" {
+  name   = "s3_readonly-allow_associateaddress-policy"
+  role   = "${aws_iam_role.s3_readonly-allow_associateaddress.id}"
   policy = <<EOF
 {
     "Version": "2012-10-17",
