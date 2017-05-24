@@ -1,12 +1,13 @@
-# This is just a sample definition of IAM instance profile which is allowed to read-only from S3
+# This is just a sample definition of IAM instance profile which is allowed to read-only from S3.
 resource "aws_iam_instance_profile" "s3_readonly" {
-  name  = "s3-readonly"
+  name  = "s3_readonly"
   roles = ["${aws_iam_role.s3_readonly.name}"]
 }
 
 resource "aws_iam_role" "s3_readonly" {
-  name               = "s3-readonly-role"
-  path               = "/"
+  name = "s3_readonly"
+  path = "/"
+
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -25,8 +26,9 @@ EOF
 }
 
 resource "aws_iam_role_policy" "s3_readonly_policy" {
-  name   = "s3-readonly-policy"
-  role   = "${aws_iam_role.s3_readonly.id}"
+  name = "s3_readonly-policy"
+  role = "${aws_iam_role.s3_readonly.id}"
+
   policy = <<EOF
 {
     "Version": "2012-10-17",
