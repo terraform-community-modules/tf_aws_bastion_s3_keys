@@ -16,7 +16,7 @@ Only SSH access is allowed to the bastion host.
   * `instance_type` - Instance type (default, `t2.micro`)
   * `ami_id` - AMI ID of Ubuntu (see `samples/ami.tf`)
   * `region` - Region (default, `eu-west-1`)
-  * `iam_instance_profile` - IAM instance profile which is allowed to access S3 bucket (see `samples/iam.tf`)
+  * `iam_instance_profile` - IAM instance profile which is allowed to access S3 bucket (see `samples/iam_s3_readonly.tf`)
   * `s3_bucket_name` - S3 bucket name which contains public keys (see `samples/s3_ssh_public_keys.tf`)
   * `s3_bucket_uri `– S3 URI which contains the public keys. If specified, `s3_bucket_name` will be ignored
   * `vpc_id` - VPC where bastion host should be created
@@ -41,7 +41,7 @@ Basic example - In your terraform code add something like this:
       instance_type               = "t2.micro"
       ami                         = "ami-123456"
       region                      = "eu-west-1"
-      iam_instance_profile        = "s3-readonly"
+      iam_instance_profile        = "s3_readonly"
       s3_bucket_name              = "public-keys-demo-bucket"
       vpc_id                      = "vpc-123456"
       subnet_ids                  = ["subnet-123456", "subnet-6789123", "subnet-321321"]
@@ -51,11 +51,12 @@ Basic example - In your terraform code add something like this:
 
 If you want to assign EIP to instance launched by auto-scaling group you can provide desired `eip` as module input
 and then execute `additional_user_data_script` which sets EIP. This way you can use Route53 with EIP, which will always
-point to existing bastion instance:
+point to existing bastion instance.  You will also need to add allow_associateaddress permission to iam_instance_profile (see `samples/iam_allow_associateaddress.tf`):
 
     module "bastion" {
       // see above
       eip = "${aws_eip.bastion.public_ip}"
+      iam_instance_profile        = "s3_readonly-allow_associateaddress"
       additional_user_data_script = <<EOF
     REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | awk -F\" '{print $4}')
     INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)

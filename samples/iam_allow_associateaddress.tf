@@ -5,8 +5,9 @@ resource "aws_iam_instance_profile" "s3_readonly-allow_associateaddress" {
 }
 
 resource "aws_iam_role" "s3_readonly-allow_associateaddress" {
-  name               = "s3_readonly-allow_associateaddress-role"
-  path               = "/"
+  name = "s3_readonly-allow_associateaddress-role"
+  path = "/"
+
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -25,8 +26,9 @@ EOF
 }
 
 resource "aws_iam_role_policy" "s3_readonly-allow_associateaddress_policy" {
-  name   = "s3_readonly-allow_associateaddress-policy"
-  role   = "${aws_iam_role.s3_readonly-allow_associateaddress.id}"
+  name = "s3_readonly-allow_associateaddress-policy"
+  role = "${aws_iam_role.s3_readonly-allow_associateaddress.id}"
+
   policy = <<EOF
 {
     "Version": "2012-10-17",
