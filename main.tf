@@ -12,9 +12,7 @@ resource "aws_security_group" "bastion" {
     from_port = 22
     to_port   = 22
 
-    cidr_blocks = [
-      "0.0.0.0/0",
-    ]
+    cidr_blocks =  "${var.allowed_cidr}"
   }
 
   egress {
