@@ -6,28 +6,24 @@ resource "aws_security_group" "bastion" {
   tags {
     Name = "${var.name}"
   }
+}
 
-  ingress {
-    protocol  = "tcp"
-    from_port = 22
-    to_port   = 22
+resource "aws_security_group_rule" "ssh_ingress" {
+  type              = "ingress"
+  from_port         = "22"
+  to_port           = "22"
+  protocol          = "tcp"
+  cidr_blocks       = "${var.allowed_cidr}"
+  security_group_id = "${aws_security_group.bastion.id}"
+}
 
-    cidr_blocks =  "${var.allowed_cidr}"
-  }
-
-  egress {
-    protocol  = -1
-    from_port = 0
-    to_port   = 0
-
-    cidr_blocks = [
-      "0.0.0.0/0",
-    ]
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
+resource "aws_security_group_rule" "bastion_all_egress" {
+  type              = "egress"
+  from_port         = "0"
+  to_port           = "65535"
+  protocol          = "all"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.bastion.id}"
 }
 
 data "template_file" "user_data" {
