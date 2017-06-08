@@ -1,3 +1,9 @@
+variable "allowed_cidr" {
+  type        = "list"
+  default     = ["0.0.0.0/0"]
+  description = "A list of CIDR Networks to allow ssh access to."
+}
+
 variable "name" {
   default = "bastion"
 }
