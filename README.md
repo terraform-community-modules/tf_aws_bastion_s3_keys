@@ -27,6 +27,7 @@ Only SSH access is allowed to the bastion host.
   * `eip` - EIP to put into EC2 tag (can be used with scripts like https://github.com/skymill/aws-ec2-assign-elastic-ip, default - empty value)
   * `key_name` - Launch configuration key name to be applied to created instance(s).
   * `allowed_cidr` - A list of CIDR Networks to allow ssh access to. Defaults to 0.0.0.0/0
+  * `allowed_security_groups` - A list of Security Group ID's to allow access to. Defaults to empty list
 
 ## Outputs:
 
