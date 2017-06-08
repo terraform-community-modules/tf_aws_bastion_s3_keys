@@ -1,3 +1,9 @@
+## 1.2.2
+
+FEATURES:
+
+ * [GH-28] - Added possibility to customize CIDR networks for SSH access
+
 ## 1.2.1
 
 FEATURES:
