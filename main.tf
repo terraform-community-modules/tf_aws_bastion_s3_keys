@@ -17,6 +17,16 @@ resource "aws_security_group_rule" "ssh_ingress" {
   security_group_id = "${aws_security_group.bastion.id}"
 }
 
+resource "aws_security_group_rule" "ssh_sg_ingress" {
+  count                    = "${length(var.allowed_security_groups)}"
+  type                     = "ingress"
+  from_port                = "22"
+  to_port                  = "22"
+  protocol                 = "tcp"
+  source_security_group_id = "${element(var.allowed_security_groups, count.index)}"
+  security_group_id        = "${aws_security_group.bastion.id}"
+}
+
 resource "aws_security_group_rule" "bastion_all_egress" {
   type              = "egress"
   from_port         = "0"

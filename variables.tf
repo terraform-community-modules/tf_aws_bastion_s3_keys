@@ -4,6 +4,12 @@ variable "allowed_cidr" {
   description = "A list of CIDR Networks to allow ssh access to."
 }
 
+variable "allowed_security_groups" {
+  type        = "list"
+  default     = []
+  description = "A list of Security Group ID's to allow access to."
+}
+
 variable "name" {
   default = "bastion"
 }
