@@ -19,6 +19,12 @@ pip install --upgrade awscli
 
 ##############
 
+# Add ${ssh_user} to system
+useradd ${ssh_user} -m
+mkdir /home/${ssh_user}/.ssh
+chmod 0700 /home/${ssh_user}/.ssh
+chown ${ssh_user}:${ssh_user} /home/${ssh_user}/.ssh
+
 cat <<"EOF" > /home/${ssh_user}/update_ssh_authorized_keys.sh
 #!/usr/bin/env bash
 
