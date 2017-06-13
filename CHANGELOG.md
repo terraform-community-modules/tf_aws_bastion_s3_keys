@@ -2,7 +2,7 @@
 
 FEATURES:
 
- * Added possibility to specify IPv6 CIDR blocks to allow SSH access (antonbabenko)
+ * [GH-30] - Added possibility to specify IPv6 CIDR blocks to allow SSH access (antonbabenko)
 
 ## 1.2.3
 
