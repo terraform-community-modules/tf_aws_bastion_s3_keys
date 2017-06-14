@@ -1,8 +1,14 @@
+## 1.2.4
+
+FEATURES:
+
+ * [GH-30] - Added possibility to specify IPv6 CIDR blocks to allow SSH access (antonbabenko)
+
 ## 1.2.3
 
 FEATURES:
 
- * [GH-29] - Added Ability to pass a list of security groups to allow SSH access (tfhartmann)
+ * [GH-29] - Added ability to pass a list of security groups to allow SSH access (tfhartmann)
 
 ## 1.2.2
 

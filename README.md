@@ -26,7 +26,8 @@ Only SSH access is allowed to the bastion host.
   * `associate_public_ip_address` - Whether to auto-assign public IP to the instance (by default - `false`)
   * `eip` - EIP to put into EC2 tag (can be used with scripts like https://github.com/skymill/aws-ec2-assign-elastic-ip, default - empty value)
   * `key_name` - Launch configuration key name to be applied to created instance(s).
-  * `allowed_cidr` - A list of CIDR Networks to allow ssh access to. Defaults to 0.0.0.0/0
+  * `allowed_cidr` - A list of CIDR Networks to allow ssh access to. Defaults to "0.0.0.0/0"
+  * `allowed_ipv6_cidr` - A list of IPv6 CIDR Networks to allow ssh access to. Defaults to "::/0"
   * `allowed_security_groups` - A list of Security Group ID's to allow access to the bastion host (useful if bastion is deployed internally) Defaults to empty list
 
 ## Outputs:
