@@ -38,6 +38,10 @@ variable "s3_bucket_uri" {
   default = ""
 }
 
+variable "enable_monitoring" {
+  default = true
+}
+
 variable "ssh_user" {
   default = "ubuntu"
 }
