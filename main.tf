@@ -71,6 +71,7 @@ resource "aws_launch_configuration" "bastion" {
   image_id      = "${var.ami}"
   instance_type = "${var.instance_type}"
   user_data     = "${data.template_file.user_data.rendered}"
+  enable_monitoring = "${var.enable_monitoring}"
 
   security_groups = [
     "${compact(concat(list(aws_security_group.bastion.id), split(",", "${var.security_group_ids}")))}",
