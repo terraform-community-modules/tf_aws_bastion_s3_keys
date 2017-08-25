@@ -14,7 +14,7 @@ Only SSH access is allowed to the bastion host.
 
   * `name` - Name (default, `bastion`)
   * `instance_type` - Instance type (default, `t2.micro`)
-  * `ami_id` - AMI ID of Ubuntu (see `samples/ami.tf`)
+  * `ami` - AMI ID of Ubuntu (see `samples/ami.tf`)
   * `region` - Region (default, `eu-west-1`)
   * `iam_instance_profile` - IAM instance profile which is allowed to access S3 bucket (see `samples/iam_s3_readonly.tf`)
   * `enable_monitoring` - Whether to enable detailed monitoring (default, `true`)
