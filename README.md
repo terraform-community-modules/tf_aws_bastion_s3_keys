@@ -1,12 +1,9 @@
 # tf_aws_bastion_s3_keys
 
-A Terraform module for creating resilient bastion host using auto-scaling group (min=max=desired=1) and populate its
-`~/.ssh/authorized_keys` with public keys fetched from S3 bucket.
+A Terraform module for creating a resilient bastion host using auto-scaling group (min=max=desired=1) and populate its
+`~/.ssh/authorized_keys` with public keys fetched from S3 bucket. Access is via a classic elastic load balancer, which makes it possible to create a Route53 Alias record pointing to the ELB.
 
-This module can append public keys, setup cron to update them and run
-additional commands at the end of setup. Note that if it is set up to
-update the keys, removing a key from the bucket will also remove it from
-the bastion host.
+This module can append public keys, setup cron to update them and run additional commands at the end of setup. Note that if it is set up to update the keys, removing a key from the bucket will also remove it from the bastion host.
 
 Only SSH access is allowed to the bastion host.
 
@@ -30,11 +27,14 @@ Only SSH access is allowed to the bastion host.
   * `allowed_cidr` - A list of CIDR Networks to allow ssh access to. Defaults to "0.0.0.0/0"
   * `allowed_ipv6_cidr` - A list of IPv6 CIDR Networks to allow ssh access to. Defaults to "::/0"
   * `allowed_security_groups` - A list of Security Group ID's to allow access to the bastion host (useful if bastion is deployed internally) Defaults to empty list
+  * `ssh_port` - inbound ssh port (default, `22`)
 
 ## Outputs:
 
   * ssh_user - SSH user to login to bastion
   * security_group_id - ID of the security group the bastion host is launched in.
+  * dns_name - DNS name of the ELB.
+  * zone_id - canonical hosted zone ID of the ELB (to be used in a Route 53 Alias record).
 
 ## Example:
 
@@ -53,42 +53,31 @@ Basic example - In your terraform code add something like this:
       additional_user_data_script = "date"
     }
 
-If you want to assign EIP to instance launched by auto-scaling group you can provide desired `eip` as module input
-and then execute `additional_user_data_script` which sets EIP. This way you can use Route53 with EIP, which will always
-point to existing bastion instance.  You will also need to add allow_associateaddress permission to iam_instance_profile (see `samples/iam_allow_associateaddress.tf`):
+By default, an external IP is allocated to the ELB instance.
+
+If you want to create a Route53 Alias record pointing to the public DNS name of the ELB, you should use code something like this:
 
     module "bastion" {
-      // see above
-      eip = "${aws_eip.bastion.public_ip}"
-      iam_instance_profile        = "s3_readonly-allow_associateaddress"
-      additional_user_data_script = <<EOF
-    REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | awk -F\" '{print $4}')
-    INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
-    aws ec2 associate-address --region $REGION --instance-id $INSTANCE_ID --allocation-id ${aws_eip.bastion.id}
-    EOF
+      // as above
     }
 
-    resource "aws_eip" "bastion" {
-      vpc = true
+    data "aws_route53_zone" "zone" {
+      name = "example.com"
     }
 
-    resource "aws_route53_record" "bastion" {
-      zone_id = "..."
+    resource "aws_route53_record" "alias" {
+      zone_id = "${data.aws_route53_zone.zone.zone_id}"
       name    = "bastion.example.com"
       type    = "A"
-      ttl     = "3600"
-      records = ["${aws_eip.bastion.public_ip}"]
+
+      alias {
+        name                   = "${module.bastion.dns_name}"
+        zone_id                = "${module.bastion.zone_id}"
+        evaluate_target_health = "false"
+      }
     }
 
 After you run `terraform apply` you should be able to login to your bastion host like:
-
-    $ ssh ${module.bastion.ssh_user}@${module.bastion.instance_ip}
-
-or:
-
-    $ ssh ${module.bastion.ssh_user}@${aws_eip.bastion.public_ip}
-
-or even like this:
 
     $ ssh ubuntu@bastion.example.com
 

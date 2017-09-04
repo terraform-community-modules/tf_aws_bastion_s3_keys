@@ -85,3 +85,8 @@ variable "associate_public_ip_address" {
 variable "key_name" {
   default = ""
 }
+
+variable "ssh_port" {
+  default     = "22"
+  description = "Inbound ssh port"
+}
