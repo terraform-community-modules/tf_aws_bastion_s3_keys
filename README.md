@@ -82,10 +82,6 @@ point to existing bastion instance.  You will also need to add allow_associatead
 
 After you run `terraform apply` you should be able to login to your bastion host like:
 
-    $ ssh ${module.bastion.ssh_user}@${module.bastion.instance_ip}
-
-or:
-
     $ ssh ${module.bastion.ssh_user}@${aws_eip.bastion.public_ip}
 
 or even like this:
