@@ -1,20 +1,26 @@
 variable "allowed_cidr" {
   type = "list"
+
   default = [
-    "0.0.0.0/0"]
+    "0.0.0.0/0",
+  ]
+
   description = "A list of CIDR Networks to allow ssh access to."
 }
 
 variable "allowed_ipv6_cidr" {
   type = "list"
+
   default = [
-    "::/0"]
+    "::/0",
+  ]
+
   description = "A list of IPv6 CIDR Networks to allow ssh access to."
 }
 
 variable "allowed_security_groups" {
-  type = "list"
-  default = []
+  type        = "list"
+  default     = []
   description = "A list of Security Group ID's to allow access to."
 }
 
@@ -23,8 +29,8 @@ variable "name" {
 }
 
 variable extra_tags {
-  type = "list"
-  default = []
+  type        = "list"
+  default     = []
   description = "A list of tags to associate to the bastion instance."
 }
 
@@ -74,11 +80,11 @@ variable "vpc_id" {}
 
 variable "security_group_ids" {
   description = "Comma seperated list of security groups to apply to the bastion."
-  default = ""
+  default     = ""
 }
 
 variable "subnet_ids" {
-  default = []
+  default     = []
   description = "A list of subnet ids"
 }
 
