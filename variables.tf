@@ -1,12 +1,20 @@
 variable "allowed_cidr" {
-  type        = "list"
-  default     = ["0.0.0.0/0"]
+  type = "list"
+
+  default = [
+    "0.0.0.0/0",
+  ]
+
   description = "A list of CIDR Networks to allow ssh access to."
 }
 
 variable "allowed_ipv6_cidr" {
-  type        = "list"
-  default     = ["::/0"]
+  type = "list"
+
+  default = [
+    "::/0",
+  ]
+
   description = "A list of IPv6 CIDR Networks to allow ssh access to."
 }
 
@@ -18,6 +26,12 @@ variable "allowed_security_groups" {
 
 variable "name" {
   default = "bastion"
+}
+
+variable extra_tags {
+  type        = "list"
+  default     = []
+  description = "A list of tags to associate to the bastion instance."
 }
 
 variable "ami" {}
