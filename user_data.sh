@@ -45,6 +45,7 @@ head -n $line $KEYS_FILE > $TEMP_KEYS_FILE
 # Synchronize the keys from the bucket.
 aws s3 sync --delete $BUCKET_URI $PUB_KEYS_DIR
 for filename in $PUB_KEYS_DIR/*; do
+    [ -f "$filename" ] || continue
     sed 's/\n\?$/\n/' < $filename >> $TEMP_KEYS_FILE
 done
 
