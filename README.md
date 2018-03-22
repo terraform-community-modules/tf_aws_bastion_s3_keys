@@ -36,6 +36,7 @@ Only SSH access is allowed to the bastion host.
 
   * ssh_user - SSH user to login to bastion
   * security_group_id - ID of the security group the bastion host is launched in.
+  * asg_id - The ID of the AutoScalingGroup the bastion host is launched within. 
 
 ## Example:
 
