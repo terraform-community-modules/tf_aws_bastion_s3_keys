@@ -84,6 +84,10 @@ resource "aws_launch_configuration" "bastion" {
     "${compact(concat(list(aws_security_group.bastion.id), split(",", "${var.security_group_ids}")))}",
   ]
 
+  root_block_device {
+    volume_size = "${var.instance_volume_size_gb}"
+  }
+
   iam_instance_profile        = "${var.iam_instance_profile}"
   associate_public_ip_address = "${var.associate_public_ip_address}"
   key_name                    = "${var.key_name}"
