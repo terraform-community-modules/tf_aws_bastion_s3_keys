@@ -1,3 +1,21 @@
+## 1.5.0
+
+FEATURES:
+
+ * [GH-43] - Replace older local keys with newer S3 keys (lachlancooper)
+
+## 1.4.0
+
+FEATURES:
+
+ * [GH-40] - Fix deprecation warning for IAM instance profile (JimiHFord)
+
+## 1.3.0
+
+FEATURES:
+
+ * [GH-39] - Fix deprecation warning for IAM role (JimiHFord)
+
 ## 1.2.4
 
 FEATURES:
