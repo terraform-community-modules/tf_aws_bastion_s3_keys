@@ -40,6 +40,11 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
+variable "instance_volume_size_gb" {
+  description = "The root volume size, in gigabytes"
+  default = "8"
+}
+
 variable "iam_instance_profile" {}
 
 variable "user_data_file" {
