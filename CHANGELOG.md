@@ -1,9 +1,15 @@
+## 1.7.0
+
+FEATURES:
+
+ * [GH-42] - Add the root volume size as a variable (spikeheap)
+
 ## 1.6.0
 
 FEATURES:
 
  * Added pre-commit hooks (antonbabenko)
- 
+
 ## 1.5.0
 
 FEATURES:
