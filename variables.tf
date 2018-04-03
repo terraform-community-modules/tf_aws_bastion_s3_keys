@@ -42,7 +42,7 @@ variable "instance_type" {
 
 variable "instance_volume_size_gb" {
   description = "The root volume size, in gigabytes"
-  default = "8"
+  default     = "8"
 }
 
 variable "iam_instance_profile" {}
