@@ -1,3 +1,9 @@
+## 1.6.0
+
+FEATURES:
+
+ * Added pre-commit hooks (antonbabenko)
+ 
 ## 1.5.0
 
 FEATURES:
