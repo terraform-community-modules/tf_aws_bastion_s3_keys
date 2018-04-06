@@ -104,3 +104,9 @@ variable "associate_public_ip_address" {
 variable "key_name" {
   default = ""
 }
+
+variable "reload_scaling_group" {
+  default = ""
+  description = "Scale up and down bastion load balancing group so new user data take effect."
+}
+

@@ -104,9 +104,9 @@ resource "aws_autoscaling_group" "bastion" {
     "${var.subnet_ids}",
   ]
 
-  desired_capacity          = "1"
-  min_size                  = "1"
-  max_size                  = "1"
+  desired_capacity          = "${var.reload_scaling_group != "" ? 0 : 1}"
+  min_size                  = "${var.reload_scaling_group != "" ? 0 : 1}"
+  max_size                  = "${var.reload_scaling_group != "" ? 0 : 1}"
   health_check_grace_period = "60"
   health_check_type         = "EC2"
   force_delete              = false
@@ -137,4 +137,26 @@ resource "aws_autoscaling_group" "bastion" {
   lifecycle {
     create_before_destroy = true
   }
+}
+/*
+resource "aws_autoscaling_schedule" "bastion_reload_action_up" {
+  count                  = "${var.reload_scaling_group != "" ? 1 : 0}"
+  scheduled_action_name  = "reload_bastion_up"
+  min_size               = 0
+  max_size               = 0
+  desired_capacity       = 0
+  start_time             = "${timeadd(timestamp(), "5m")}"
+  end_time               = "${timeadd(timestamp(), "10m")}"
+  autoscaling_group_name = "${var.name}"
+}
+*/
+resource "aws_autoscaling_schedule" "bastion_reload_action_down" {
+  count                  = "${var.reload_scaling_group != "" ? 1 : 0}"
+  scheduled_action_name  = "reload_bastion_down"
+  min_size               = 1
+  max_size               = 1
+  desired_capacity       = 1
+  start_time             = "${timeadd(timestamp(), "5m")}"
+  // end_time               = "${timeadd(timestamp(), "15m")}"
+  autoscaling_group_name = "${var.name}"
 }
