@@ -138,18 +138,7 @@ resource "aws_autoscaling_group" "bastion" {
     create_before_destroy = true
   }
 }
-/*
-resource "aws_autoscaling_schedule" "bastion_reload_action_up" {
-  count                  = "${var.reload_scaling_group != "" ? 1 : 0}"
-  scheduled_action_name  = "reload_bastion_up"
-  min_size               = 0
-  max_size               = 0
-  desired_capacity       = 0
-  start_time             = "${timeadd(timestamp(), "5m")}"
-  end_time               = "${timeadd(timestamp(), "10m")}"
-  autoscaling_group_name = "${var.name}"
-}
-*/
+
 resource "aws_autoscaling_schedule" "bastion_reload_action_down" {
   count                  = "${var.reload_scaling_group != "" ? 1 : 0}"
   scheduled_action_name  = "reload_bastion_down"
