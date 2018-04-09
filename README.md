@@ -32,6 +32,7 @@ Only SSH access is allowed to the bastion host.
   * `allowed_ipv6_cidr` - A list of IPv6 CIDR Networks to allow ssh access to. Defaults to "::/0"
   * `allowed_security_groups` - A list of Security Group ID's to allow access to the bastion host (useful if bastion is deployed internally) Defaults to empty list
   * `extra_tags` - Optional a list of Key/Values Tags to be associated to the bastion host (see [Interpolated Tags](https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html)) 
+  * `reload_bastion` - Whether to apply `aws_launch_configuration` and update instances in autoscaling group (by default - `false`)
 
 ## Outputs:
 
