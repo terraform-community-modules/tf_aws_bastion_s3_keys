@@ -1,3 +1,9 @@
+## 1.8.0
+
+FEATURES:
+
+ * [GH-45] - Add possibility to apply changes immediately once launch configuration is changed (lukaspour)
+
 ## 1.7.0
 
 FEATURES:
