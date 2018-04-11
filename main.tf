@@ -98,7 +98,7 @@ resource "aws_launch_configuration" "bastion" {
 }
 
 resource "aws_autoscaling_group" "bastion" {
-  name = "${var.name}"
+  name = "${var.apply_changes_immediately ? aws_launch_configuration.bastion.name : var.name}"
 
   vpc_zone_identifier = [
     "${var.subnet_ids}",
