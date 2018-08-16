@@ -1,3 +1,9 @@
+## 1.8.1
+
+FEATURES:
+
+ * [GH-47] - Small tidy up of README (max-rocket-internet)
+
 ## 1.8.0
 
 FEATURES:
