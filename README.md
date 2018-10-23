@@ -96,7 +96,7 @@ $ ssh ubuntu@bastion.example.com
 
 PS: In some cases you may consider adding flag `-A` to ssh command to enable forwarding of the authentication agent connection.
 
-##Authors
+## Authors
 
 Created and maintained by [Anton Babenko](https://github.com/antonbabenko).
 Heavily inspired by [hashicorp/atlas-examples](https://github.com/hashicorp/atlas-examples/tree/master/infrastructures/terraform/aws/network/bastion).
