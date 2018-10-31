@@ -1,6 +1,7 @@
 # This is an example of how to put public keys into S3 bucket and manage them in Terraform
 variable "ssh_public_key_names" {
-  default = "user1,user2,admin"
+  default = ["user1","user2","admin"]
+  type    = "list"
 }
 
 resource "aws_s3_bucket" "ssh_public_keys" {
@@ -32,11 +33,11 @@ EOF
 
 resource "aws_s3_bucket_object" "ssh_public_keys" {
   bucket = "${aws_s3_bucket.ssh_public_keys.bucket}"
-  key    = "${element(split(",", var.ssh_public_key_names), count.index)}.pub"
+  key    = "${element(var.ssh_public_key_names, count.index)}.pub"
 
   # Make sure that you put files into correct location and name them accordingly (`public_keys/{keyname}.pub`)
-  content = "${file("public_keys/${element(split(",", var.ssh_public_key_names), count.index)}.pub")}"
-  count   = "${length(split(",", var.ssh_public_key_names))}"
+  source = "public_keys/${element(var.ssh_public_key_names, count.index)}.pub"
+  count  = "${length(var.ssh_public_key_names)}"
 
   depends_on = ["aws_s3_bucket.ssh_public_keys"]
 }
