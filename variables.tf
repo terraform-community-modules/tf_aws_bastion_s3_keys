@@ -109,3 +109,8 @@ variable "apply_changes_immediately" {
   description = "Whether to apply the changes at once and recreate auto-scaling group"
   default     = false
 }
+
+variable "enabled" {
+  default     = true
+  description = "Whether to create bastion or not."
+}

@@ -1,4 +1,5 @@
 resource "aws_security_group" "bastion" {
+  count       = "${var.enabled}"
   name        = "${var.name}"
   vpc_id      = "${var.vpc_id}"
   description = "Bastion security group (only SSH inbound access is allowed)"
@@ -9,6 +10,7 @@ resource "aws_security_group" "bastion" {
 }
 
 resource "aws_security_group_rule" "ssh_ingress" {
+  count             = "${var.enabled}"
   type              = "ingress"
   from_port         = "22"
   to_port           = "22"
@@ -19,16 +21,17 @@ resource "aws_security_group_rule" "ssh_ingress" {
 }
 
 resource "aws_security_group_rule" "ssh_sg_ingress" {
-  count                    = "${length(var.allowed_security_groups)}"
+  count                    = "${length(var.allowed_security_groups) * var.enabled}"
   type                     = "ingress"
   from_port                = "22"
   to_port                  = "22"
   protocol                 = "tcp"
-  source_security_group_id = "${element(var.allowed_security_groups, count.index)}"
+  source_security_group_id = "${length(var.allowed_security_groups) > 0 ? element(concat(var.allowed_security_groups, list("")), count.index) : ""}"
   security_group_id        = "${aws_security_group.bastion.id}"
 }
 
 resource "aws_security_group_rule" "bastion_all_egress" {
+  count     = "${var.enabled}"
   type      = "egress"
   from_port = "0"
   to_port   = "65535"
@@ -59,6 +62,8 @@ data "template_file" "user_data" {
 }
 
 //resource "aws_instance" "bastion" {
+//  count = "${var.enabled}"
+
 //  ami                    = "${var.ami}"
 //  instance_type          = "${var.instance_type}"
 //  iam_instance_profile   = "${var.iam_instance_profile}"
@@ -74,6 +79,7 @@ data "template_file" "user_data" {
 //}
 
 resource "aws_launch_configuration" "bastion" {
+  count             = "${var.enabled}"
   name_prefix       = "${var.name}-"
   image_id          = "${var.ami}"
   instance_type     = "${var.instance_type}"
@@ -98,7 +104,8 @@ resource "aws_launch_configuration" "bastion" {
 }
 
 resource "aws_autoscaling_group" "bastion" {
-  name = "${var.apply_changes_immediately ? aws_launch_configuration.bastion.name : var.name}"
+  count = "${var.enabled}"
+  name  = "${var.apply_changes_immediately ? aws_launch_configuration.bastion.name : var.name}"
 
   vpc_zone_identifier = [
     "${var.subnet_ids}",
