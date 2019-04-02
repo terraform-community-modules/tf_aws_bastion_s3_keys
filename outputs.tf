@@ -3,9 +3,9 @@ output "ssh_user" {
 }
 
 output "security_group_id" {
-  value = "${aws_security_group.bastion.*.id}"
+  value = "${element(concat(aws_security_group.bastion.*.id, list("")), 0)}"
 }
 
 output "asg_id" {
-  value = "${aws_autoscaling_group.bastion.*.id}"
+  value = "${element(concat(aws_autoscaling_group.bastion.*.id, list("")), 0)}"
 }
