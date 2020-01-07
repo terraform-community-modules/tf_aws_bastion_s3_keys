@@ -13,41 +13,11 @@ For Terraform 0.12, use the version from master:
 
     source  = "github.com/terraform-community-modules/tf_aws_bastion_s3_keys"
 
-For Terraform 0.11, pin the module version like this:
+For Terraform 0.11, pin the module version to match `v1.*`. For e.g.:
 
     source  = "github.com/terraform-community-modules/tf_aws_bastion_s3_keys?ref=v1.10.0"
 
-## Input variables:
-
-  * `name` - Name (default, `bastion`)
-  * `instance_type` - Instance type (default, `t2.micro`)
-  * `instance_volume_size_gb` - The root volume size, in gigabytes (default, `8`)
-  * `ami` - AMI ID of Ubuntu (see `samples/ami.tf`)
-  * `region` - Region (default, `eu-west-1`)
-  * `iam_instance_profile` - IAM instance profile which is allowed to access S3 bucket (see `samples/iam_s3_readonly.tf`)
-  * `enable_monitoring` - Whether to enable detailed monitoring (default, `true`)
-  * `s3_bucket_name` - S3 bucket name which contains public keys (see `samples/s3_ssh_public_keys.tf`)
-  * `s3_bucket_uri `– S3 URI which contains the public keys. If specified, `s3_bucket_name` will be ignored
-  * `vpc_id` - VPC where bastion host should be created
-  * `subnet_ids` - List of subnet IDs where auto-scaling should create instances
-  * `keys_update_frequency` - How often to update keys. A cron timespec or an empty string to turn off (default)
-  * `additional_user_data_script` - Additional user-data script to run at the end
-  * `associate_public_ip_address` - Whether to auto-assign public IP to the instance (by default - `false`)
-  * `eip` - EIP to put into EC2 tag (can be used with scripts like https://github.com/skymill/aws-ec2-assign-elastic-ip, default - empty value)
-  * `key_name` - Launch configuration key name to be applied to created instance(s).
-  * `allowed_cidr` - A list of CIDR Networks to allow ssh access to. Defaults to "0.0.0.0/0"
-  * `allowed_ipv6_cidr` - A list of IPv6 CIDR Networks to allow ssh access to. Defaults to "::/0"
-  * `allowed_security_groups` - A list of Security Group ID's to allow access to the bastion host (useful if bastion is deployed internally) Defaults to empty list
-  * `extra_tags` - Optional a list of Key/Values Tags to be associated to the bastion host (see [Interpolated Tags](https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html))
-  * `apply_changes_immediately` - Whether to apply `aws_launch_configuration` and update instances in autoscaling group (by default - `false`)
-
-## Outputs:
-
-  * `ssh_user` - SSH user to login to bastion
-  * `security_group_id` - ID of the security group the bastion host is launched in
-  * `asg_id` - The ID of the AutoScalingGroup the bastion host is launched within
-
-## Example:
+## Example
 
 Basic example - In your terraform code add something like this:
 
@@ -89,7 +59,7 @@ resource "aws_route53_record" "bastion" {
   name    = "bastion.example.com"
   type    = "A"
   ttl     = "3600"
-  records = ["${aws_eip.bastion.public_ip}"]
+  records = [aws_eip.bastion.public_ip]
 }
 ```
 
@@ -107,10 +77,51 @@ $ ssh ubuntu@bastion.example.com
 
 PS: In some cases you may consider adding flag `-A` to ssh command to enable forwarding of the authentication agent connection.
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-----:|:-----:|
+| additional\_user\_data\_script |  | string | `""` | no |
+| allowed\_cidr | A list of CIDR Networks to allow ssh access to. | list(string) | `[ "0.0.0.0/0" ]` | no |
+| allowed\_ipv6\_cidr | A list of IPv6 CIDR Networks to allow ssh access to. | list(string) | `[ "::/0" ]` | no |
+| allowed\_security\_groups | A list of Security Group ID's to allow access to. | list(string) | `[]` | no |
+| ami |  | string | n/a | yes |
+| apply\_changes\_immediately | Whether to apply the changes at once and recreate auto-scaling group | string | `"false"` | no |
+| associate\_public\_ip\_address |  | string | `"false"` | no |
+| eip |  | string | `""` | no |
+| enable\_hourly\_cron\_updates |  | string | `"false"` | no |
+| enable\_monitoring |  | string | `"true"` | no |
+| extra\_tags | A list of tags to associate to the bastion instance. | object | `[]` | no |
+| iam\_instance\_profile |  | string | n/a | yes |
+| instance\_type |  | string | `"t2.micro"` | no |
+| instance\_volume\_size\_gb | The root volume size, in gigabytes | string | `"8"` | no |
+| key\_name |  | string | `""` | no |
+| keys\_update\_frequency |  | string | `""` | no |
+| name |  | string | `"bastion"` | no |
+| region |  | string | `"eu-west-1"` | no |
+| s3\_bucket\_name |  | string | n/a | yes |
+| s3\_bucket\_uri |  | string | `""` | no |
+| security\_group\_ids | Comma seperated list of security groups to apply to the bastion. | string | `""` | no |
+| ssh\_user |  | string | `"ubuntu"` | no |
+| subnet\_ids | A list of subnet ids | list | `[]` | no |
+| user\_data\_file |  | string | `"user_data.sh"` | no |
+| vpc\_id |  | string | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| asg\_id |  |
+| security\_group\_id |  |
+| ssh\_user |  |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+
 ## Authors
 
 Created and maintained by [Anton Babenko](https://github.com/antonbabenko).
-Heavily inspired by [hashicorp/atlas-examples](https://github.com/hashicorp/atlas-examples/tree/master/infrastructures/terraform/aws/network/bastion).
 
 # License
 

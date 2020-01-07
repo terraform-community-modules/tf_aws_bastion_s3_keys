@@ -29,7 +29,7 @@ variable "name" {
 }
 
 variable "extra_tags" {
-  type        = list(object({ key=string, value=string, propagate_at_launch=bool }))
+  type        = list(object({ key = string, value = string, propagate_at_launch = bool }))
   default     = []
   description = "A list of tags to associate to the bastion instance."
 }
