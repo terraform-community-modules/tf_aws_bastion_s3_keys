@@ -3,9 +3,10 @@
 
 
 
-<a name="v1.11.0"></a>
-## [v1.11.0] - 2020-01-07
+<a name="v2.0.0"></a>
+## [v2.0.0] - 2020-01-07
 
+- Updated CHANGELOG
 - Added git-chklog files
 - Fixed for Terraform 0.12
 - Support for Terraform 0.12 (fixes [#55](https://github.com/terraform-community-modules/tf_aws_bastion_s3_keys/issues/55)) ([#56](https://github.com/terraform-community-modules/tf_aws_bastion_s3_keys/issues/56))
@@ -203,8 +204,8 @@ ProxyCommand ssh -o 'ForwardAgent yes' ubuntu[@bastion](https://github.com/basti
 - Initial commit
 
 
-[Unreleased]: https://github.com/terraform-community-modules/tf_aws_bastion_s3_keys/compare/v1.11.0...HEAD
-[v1.11.0]: https://github.com/terraform-community-modules/tf_aws_bastion_s3_keys/compare/v1.10.0...v1.11.0
+[Unreleased]: https://github.com/terraform-community-modules/tf_aws_bastion_s3_keys/compare/v2.0.0...HEAD
+[v2.0.0]: https://github.com/terraform-community-modules/tf_aws_bastion_s3_keys/compare/v1.10.0...v2.0.0
 [v1.10.0]: https://github.com/terraform-community-modules/tf_aws_bastion_s3_keys/compare/v1.9.0...v1.10.0
 [v1.9.0]: https://github.com/terraform-community-modules/tf_aws_bastion_s3_keys/compare/v1.8.1...v1.9.0
 [v1.8.1]: https://github.com/terraform-community-modules/tf_aws_bastion_s3_keys/compare/v1.8.0...v1.8.1
