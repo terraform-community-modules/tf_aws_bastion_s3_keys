@@ -6,6 +6,17 @@ This module can append public keys, setup cron to update them and run additional
 
 Only SSH access is allowed to the bastion host.
 
+
+## Terraform versions
+
+For Terraform 0.12, use the version from master:
+
+    source  = "github.com/terraform-community-modules/tf_aws_bastion_s3_keys"
+
+For Terraform 0.11, pin the module version like this:
+
+    source  = "github.com/terraform-community-modules/tf_aws_bastion_s3_keys?ref=v1.10.0"
+
 ## Input variables:
 
   * `name` - Name (default, `bastion`)
