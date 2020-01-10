@@ -89,6 +89,7 @@ PS: In some cases you may consider adding flag `-A` to ssh command to enable for
 | ami |  | string | n/a | yes |
 | apply\_changes\_immediately | Whether to apply the changes at once and recreate auto-scaling group | string | `"false"` | no |
 | associate\_public\_ip\_address |  | string | `"false"` | no |
+| aws\_security\_group\_description |  | string | `"Bastion security group (only SSH inbound access is allowed)"` | no |
 | eip |  | string | `""` | no |
 | enable\_hourly\_cron\_updates |  | string | `"false"` | no |
 | enable\_monitoring |  | string | `"true"` | no |
