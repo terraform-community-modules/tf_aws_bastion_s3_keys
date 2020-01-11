@@ -1,7 +1,7 @@
 resource "aws_security_group" "bastion" {
   name        = var.name
   vpc_id      = var.vpc_id
-  description = "${var.aws_security_group_description}"
+  description = var.aws_security_group_description
 
   tags = {
     Name = var.name
