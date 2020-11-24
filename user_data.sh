@@ -14,7 +14,7 @@ elif command -v yum &>/dev/null; then
   yum update -y
   # epel provides python-pip & jq
   yum install -y epel-release
-  yum install python-pip jq -y
+  yum install python3-pip jq -y
 fi
 
 #####################
