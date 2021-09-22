@@ -50,7 +50,8 @@ variable "iam_instance_profile" {
 }
 
 variable "user_data_file" {
-  default = "user_data.sh"
+  description = "Contents of user data file to be processed"
+  default     = ""
 }
 
 variable "s3_bucket_name" {

@@ -46,7 +46,7 @@ resource "aws_security_group_rule" "bastion_all_egress" {
 }
 
 data "template_file" "user_data" {
-  template = file("${path.module}/${var.user_data_file}")
+  template = var.user_data_file != "" ? var.user_data_file : file("${path.module}/user_data.sh")
 
   vars = {
     s3_bucket_name              = var.s3_bucket_name
