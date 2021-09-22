@@ -3,16 +3,20 @@
 ##############
 # Install deps
 ##############
-# Ubuntu
-apt-get update
-apt-get install python-pip jq -y
-#####################
 
-# Amazon Linux (RHEL) - NAT instances
-yum update -y
-# epel provides python-pip & jq
-yum install -y epel-release
-yum install python-pip jq -y
+# Apt based distro
+if command -v apt-get &>/dev/null; then
+  apt-get update
+  apt-get install python-pip jq -y
+
+# Yum based distro
+elif command -v yum &>/dev/null; then
+  yum update -y
+  # epel provides python-pip & jq
+  yum install -y epel-release
+  yum install python-pip jq -y
+fi
+
 #####################
 
 pip install --upgrade awscli
@@ -43,7 +47,7 @@ line=$(grep -n "$MARKER" $KEYS_FILE | cut -d ":" -f 1)
 head -n $line $KEYS_FILE > $TEMP_KEYS_FILE
 
 # Synchronize the keys from the bucket.
-aws s3 sync --delete $BUCKET_URI $PUB_KEYS_DIR
+aws s3 sync --delete --exact-timestamps $BUCKET_URI $PUB_KEYS_DIR
 for filename in $PUB_KEYS_DIR/*; do
     [ -f "$filename" ] || continue
     sed 's/\n\?$/\n/' < $filename >> $TEMP_KEYS_FILE
