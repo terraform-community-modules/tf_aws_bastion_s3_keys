@@ -115,3 +115,7 @@ variable "apply_changes_immediately" {
   default     = false
 }
 
+variable "aws_security_group_description" {
+  default = "Bastion security group (only SSH inbound access is allowed)"
+}
+
