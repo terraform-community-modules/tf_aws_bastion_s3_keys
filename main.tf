@@ -125,7 +125,7 @@ resource "aws_autoscaling_group" "bastion" {
     "GroupTotalInstances",
   ]
 
-  tags = concat(
+  tag = concat(
     [
       {
         "key"                 = "Name"
