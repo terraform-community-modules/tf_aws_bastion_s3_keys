@@ -64,7 +64,7 @@ resource "aws_launch_configuration" "bastion" {
   name_prefix       = "${var.name}-"
   image_id          = var.ami
   instance_type     = var.instance_type
-  user_data         = templatefile("${path.module}/user_data.sh",{
+  user_data         = templatefile(var.user_data_file != "" ? var.user_data_file : "${path.module}/user_data.sh",{
     s3_bucket_name              = var.s3_bucket_name
     s3_bucket_uri               = var.s3_bucket_uri
     ssh_user                    = var.ssh_user
