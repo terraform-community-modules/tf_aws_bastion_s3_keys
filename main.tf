@@ -65,6 +65,11 @@ data "template_file" "user_data" {
 //  subnet_id              = "${var.subnet_id}"
 //  vpc_security_group_ids = ["${aws_security_group.bastion.id}"]
 //  user_data              = "${template_file.user_data.rendered}"
+//  http_endpoint               = var.enable_http_endpoint ? "enabled" : "disabled"
+//  http_tokens                 = var.use_imds_v2 ? "required" : "optional"
+//  http_put_response_hop_limit = var.http_put_response_hop_limit
+//  http_protocol_ipv6          = var.enable_http_protocol_ipv6 ? "enabled" : "disabled"
+//  instance_metadata_tags      = var.enable_instance_metadata_tags ? "enabled" : "disabled"
 //
 //  count                  = 1
 //
@@ -94,6 +99,15 @@ resource "aws_launch_configuration" "bastion" {
   iam_instance_profile        = var.iam_instance_profile
   associate_public_ip_address = var.associate_public_ip_address
   key_name                    = var.key_name
+
+  # Doc: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_configuration#metadata_options
+  metadata_options {
+    http_endpoint               = var.enable_http_endpoint ? "enabled" : "disabled"
+    http_tokens                 = var.use_imds_v2 ? "required" : "optional"
+    http_put_response_hop_limit = var.http_put_response_hop_limit
+    http_protocol_ipv6          = var.enable_http_protocol_ipv6 ? "enabled" : "disabled"
+    instance_metadata_tags      = var.enable_instance_metadata_tags ? "enabled" : "disabled"
+  }
 
   lifecycle {
     create_before_destroy = true

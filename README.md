@@ -27,8 +27,12 @@ Only SSH access is allowed to the bastion host.
   * `allowed_cidr` - A list of CIDR Networks to allow ssh access to. Defaults to "0.0.0.0/0"
   * `allowed_ipv6_cidr` - A list of IPv6 CIDR Networks to allow ssh access to. Defaults to "::/0"
   * `allowed_security_groups` - A list of Security Group ID's to allow access to the bastion host (useful if bastion is deployed internally) Defaults to empty list
-  * `extra_tags` - Optional a list of Key/Values Tags to be associated to the bastion host (see [Interpolated Tags](https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html)) 
-
+  * `extra_tags` - Optional a list of Key/Values Tags to be associated to the bastion host (see [Interpolated Tags](https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html))
+  *  enable_http_endpoint - Whether the metadata service is available.
+  *  use_imds_v2 - Use (IMDSv2) Instance Metadata Service V2
+  *  http_put_response_hop_limit - The desired HTTP PUT response hop limit for instance metadata requests. Can be an integer from 1 to 64.
+  *  enable_http_protocol_ipv6 - Enables or disables the IPv6 endpoint for the instance metadata service.
+  *  enable_instance_metadata_tags - Enables or disables access to instance tags from the instance metadata service.
 ## Outputs:
 
   * ssh_user - SSH user to login to bastion
@@ -134,6 +138,11 @@ PS: In some cases you may consider adding flag `-A` to ssh command to enable for
 | subnet\_ids | A list of subnet ids | list | `[]` | no |
 | user\_data\_file |  | string | `"user_data.sh"` | no |
 | vpc\_id |  | string | n/a | yes |
+| enable_http_endpoint | Whether the metadata service is available | bool | `true` | no | 
+| use_imds_v2 | Use (IMDSv2) Instance Metadata Service V2 | bool | `false` | no |
+| http_put_response_hop_limit | The desired HTTP PUT response hop limit for instance metadata requests. Can be an integer from 1 to 64. | number | `1` | no |
+| enable_http_protocol_ipv6 | Enables or disables the IPv6 endpoint for the instance metadata service. | bool | `false` | no |
+| enable_instance_metadata_tags | Enables or disables access to instance tags from the instance metadata service. | bool | `false` |
 
 ## Outputs
 
