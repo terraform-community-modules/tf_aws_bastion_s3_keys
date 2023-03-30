@@ -105,8 +105,6 @@ resource "aws_launch_configuration" "bastion" {
     http_endpoint               = var.enable_http_endpoint ? "enabled" : "disabled"
     http_tokens                 = var.use_imds_v2 ? "required" : "optional"
     http_put_response_hop_limit = var.http_put_response_hop_limit
-    http_protocol_ipv6          = var.enable_http_protocol_ipv6 ? "enabled" : "disabled"
-    instance_metadata_tags      = var.enable_instance_metadata_tags ? "enabled" : "disabled"
   }
 
   lifecycle {

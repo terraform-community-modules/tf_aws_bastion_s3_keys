@@ -132,16 +132,3 @@ variable "http_put_response_hop_limit" {
   type        = number
   default     = 1
 }
-
-variable "enable_http_protocol_ipv6" {
-  description = "Enables or disables the IPv6 endpoint for the instance metadata service."
-  type        = bool
-  default     = false
-}
-
-variable "enable_instance_metadata_tags" {
-  description = "Enables or disables access to instance tags from the instance metadata service."
-  type        = bool
-  default     = false
-}
-
