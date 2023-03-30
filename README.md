@@ -31,8 +31,7 @@ Only SSH access is allowed to the bastion host.
   *  enable_http_endpoint - Whether the metadata service is available.
   *  use_imds_v2 - Use (IMDSv2) Instance Metadata Service V2
   *  http_put_response_hop_limit - The desired HTTP PUT response hop limit for instance metadata requests. Can be an integer from 1 to 64.
-  *  enable_http_protocol_ipv6 - Enables or disables the IPv6 endpoint for the instance metadata service.
-  *  enable_instance_metadata_tags - Enables or disables access to instance tags from the instance metadata service.
+
 ## Outputs:
 
   * ssh_user - SSH user to login to bastion
@@ -141,8 +140,6 @@ PS: In some cases you may consider adding flag `-A` to ssh command to enable for
 | enable_http_endpoint | Whether the metadata service is available | bool | `true` | no | 
 | use_imds_v2 | Use (IMDSv2) Instance Metadata Service V2 | bool | `false` | no |
 | http_put_response_hop_limit | The desired HTTP PUT response hop limit for instance metadata requests. Can be an integer from 1 to 64. | number | `1` | no |
-| enable_http_protocol_ipv6 | Enables or disables the IPv6 endpoint for the instance metadata service. | bool | `false` | no |
-| enable_instance_metadata_tags | Enables or disables access to instance tags from the instance metadata service. | bool | `false` |
 
 ## Outputs
 
